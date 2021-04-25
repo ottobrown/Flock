@@ -1,44 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Axolotl names</title>
-
-    <link rel="icon" href="https://lh3.googleusercontent.com/faZbTGJ9yQZ1e76mchtF7fKgu92O01dEm2xAVeiu-JCqM46xp5tAU2y0wWS0XXaCbpxJDA=s50">
-
-    <!--Loads in font-->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital@1&display=swap" rel="stylesheet">
+    <title>Flocks</title>
 </head>
 <body>
-
-    <style>
-        /*Colors:
-        Light Blue: rgb(0,212,255)
-        Dark Blue: rgb(9,9,121)
-        */
-        body {
-            background: rgb(0,212,255);
-            background: linear-gradient(180deg, rgba(0,212,255,1) 0%, rgba(9,9,121,1) 100%);
-        }
-
-        #List {
-            font-size: 30px;
-            font-family: 'Source Code Pro', monospace;
-            font-weight: bold;
-            color: rgb(255, 200, 158);
-        }
-    </style>    
-    
-    <img src="./assets/76-761590_transparent-axolotl-png-axolotl-transparent-background.png" style="height: 400px; display: flex; float: right;">
-    <div id="List"></div>
+    <canvas height="720px" width="1280px" id="mycanvas" style="background-image: url(https://images.wallpaperscraft.com/image/clouds_sky_beautiful_174226_1280x720.jpg);"></canvas>
 
 
-<script type="module" src="./js/sort.js"></script>
-<script type="module" src="./js/names.js"></script>
-
+        <script type="module" src="./js/creature.js"></script>
+        <script type="module" src="./js/utilities.js"></script>
+        <script type="module" src="./js/main.js"></script>
 </body>
 </html>
