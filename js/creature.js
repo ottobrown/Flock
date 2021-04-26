@@ -1,23 +1,18 @@
-import { collision, numbers } from './utilities.js'
+import { numbers } from './utilities.js'
 const canv = document.getElementById('mycanvas')
 const ctx = canv.getContext('2d', { alpha: false })
 
-let canvasCenterX = canv.width / 2
-let canvasCenterY = canv.height / 2
 
 export let creatures = []
 
-
-
-//TODO: mke this user-modifyable
+//TODO: make this user-modifyable
 let flock = {
-    flockDeviation:0.1,
-    flockRange:20,
-    randomMovement:1, // based on chooseDirection method
-    memberSpeed:3,//In pixels per frame
-    memberRadius:10,
-    spawnedCreatures:3000, // Spawn this many 
-}
+      flockRange:0,
+  randomMovement:0, // based on chooseDirection method
+     memberSpeed:0, //In pixels per frame
+    memberRadius:0, 
+spawnedCreatures:0, // Spawn this many 
+} 
 export class creature {
     constructor(x, y, direction, speed) {
         this.x = x
@@ -29,11 +24,15 @@ export class creature {
     chooseDirection(x, strength) {
         //Most return values are close to 0
         //Strength determines how strongly the creture is controlled by randomness
-        return strength * Math.pow((x - 0.5), 3)
+        
+        //return strength * Math.pow((x - 0.5), 3)
+        return strength * (0.2*x - 0.1)
+        //alternative
     }
 
     move() {
         //changes direction randomly
+        this.diirection = this.direction % 360
         this.direction += this.chooseDirection(Math.random(), flock.randomMovement)
 
         //Moves based on vector
@@ -68,13 +67,13 @@ export class creature {
         creatures.forEach(element => {
 
             if(!(element.x == this.x && element.direction == this.direction && element.y == this.y) ) { // If element is not itself
-                if ((Math.abs(element.x - this.x)) < flock.flockRange && (Math.abs(element.y - this.y)) < flock.flockRange) { // If elements are close to each other
+                if (numbers.calculateDisance(this.x, this.y, element.x, element.y) < flock.flockRange) { // If elements are close to each other
                     this.direction = element.direction
-                    this.direction += this.chooseDirection(Math.random(), flock.flockDeviation)
+                    this.direction += this.chooseDirection(Math.random(), flock.randomMovement)
+                    return
                 }
             }
         })
-        //TODO: FIX: flocks get stuck on the edge
     }
 
     Frame() {
@@ -84,9 +83,31 @@ export class creature {
     }
 }
 
-let i = 0
-while(i < flock.spawnedCreatures) {
-    creatures.push(new creature(numbers.RandomInt(10, 1270), numbers.RandomInt(10, 710), numbers.RandomInt(0, 360), flock.memberSpeed))
-
-    i++
+let startButton = document.getElementById('startSimButton')
+startButton.onclick = function ButtonStart(){
+    simStart()
 }
+
+function simStart() {
+    flock.flockRange = document.getElementById('flockRange').value
+    flock.randomMovement = document.getElementById('randomMovement').value
+    flock.memberSpeed = document.getElementById('speed').value
+    flock.memberRadius = document.getElementById('radius').value
+    flock.spawnedCreatures = document.getElementById('numSpawn').value
+
+    let i = 0
+    creatures = []
+    while(i < flock.spawnedCreatures) {
+        creatures.push(new creature(numbers.RandomInt(10, canv.width + 10), numbers.RandomInt(10, canv.height + 10), numbers.RandomInt(0, 360), flock.memberSpeed))
+        //Spawns creatures randomly
+
+        //creatures.push(new creature(640, 360, numbers.RandomInt(0, 360), flock.memberSpeed))
+        //spawns all in middle
+
+
+        i++
+    }
+
+}
+
+simStart()
