@@ -1,4 +1,4 @@
-import { creatures } from './creature.js'
+import { particles } from './particle.js'
 import { numbers } from './utilities.js'
 
 
@@ -15,9 +15,10 @@ function loop(currentTime) {
 
     ctx.clearRect(0, 0, canv.width, canv.height) //Clears the canvas each frame
 
-    numbers.shuffleArray(creatures)
+    //numbers.shuffleArray(particles)
+    //Used in old flocking method
 
-    creatures.forEach(element => {
+    particles.forEach(element => {
         element.Frame()
     });
     //Put all functions that run on each frame here
